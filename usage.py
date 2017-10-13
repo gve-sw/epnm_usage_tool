@@ -51,7 +51,6 @@ def get_device_ID_list(response):
         id_list.append(str(item['$']))
     return id_list
 
-
 def get_inventory(auth, host):
     """ Queries all registered Guests"""
     extension = 'Devices'
@@ -79,7 +78,7 @@ def get_all_optical_device_ids(auth, host):
     id_list = get_device_ID_list(response)
     return id_list
 
-def determineCapacity(physicalLocation):
+def determine_capacity(physicalLocation):
     if physicalLocation == 'SHELF':
         return 8
     location = physicalLocation[0:6]
@@ -162,7 +161,7 @@ def get_NCS2KMOD_dev(auth, host):
                 
                 physicalLocation = module["physicalLocation"]
 
-                chassisCapacity = determineCapacity(physicalLocation)
+                chassisCapacity = determine_capacity(physicalLocation)
                 if chassisCapacity==2: 
                     chassis = 'NCS2002'
                 if chassisCapacity==6: 
@@ -176,7 +175,7 @@ def get_NCS2KMOD_dev(auth, host):
                     chassis = chassis_list[chasses.index(physicalLocation)]
                     validChassis = True
                 else:
-                    chassisCapacity = determineCapacity(physicalLocation)
+                    chassisCapacity = determine_capacity(physicalLocation)
                     #print physicalLocation+' : '+str(chassisCapacity)
                     if chassisCapacity > 0:
                         validChassis = True
