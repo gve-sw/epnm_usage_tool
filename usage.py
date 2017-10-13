@@ -102,7 +102,7 @@ def determine_capacity(physicalLocation):
         raise ValueError("PSHELF")
     return 0
 
-def createDeviceModel(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization):
+def create_device_model(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization):
     device = {
         'deviceID' : deviceID,
         'deviceIP' : deviceIP,
@@ -211,7 +211,7 @@ def get_NCS2KMOD_dev(auth, host):
         print chassis_parings
         print
         utilization = float(slotUsage) / float(capacity)
-        thisDevice = createDeviceModel(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization)
+        thisDevice = create_device_model(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization)
         allDevices.append(thisDevice)
 
     print_device_list_capacity_summary(allDevices)
