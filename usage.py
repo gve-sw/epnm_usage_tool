@@ -92,14 +92,14 @@ def determine_capacity(physicalLocation):
             return 15
         raise ValueError("SHELF")
     if 'PSHELF' == location:
-        productFamily = physicalLocation[-5:]
-        if '-2RU]' == productFamily:
-            return 2
-        if '-6RU]' == productFamily:
-            return 6
-        if '15RU]' == productFamily:
-            return 15
-        raise ValueError("PHSELF")
+        productFamily = physicalLocation[-9:]
+        # if '-2RU]' == productFamily:
+        #     return 2
+        if 'F-MF-6RU]' == productFamily:
+            return 14
+        if 'MF10-6RU]' == productFamily:
+            return 10
+        raise ValueError("PSHELF")
     return 0
 
 def createDeviceModel(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization):
