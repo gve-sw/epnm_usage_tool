@@ -1,0 +1,2 @@
+Device ID,Device IP,Device Name,Device Type,Line Cards,Slot Usage,Capacity,Utilization
+7688694,10.89.204.121,RJO_EN,Cisco NCS 2015,"{u'NCS2K-MF10-6RU': 1, u'NCS2K-200G-CK-C': 4, u'NCS2K-20-SMRFS-CV': 4, u'NCS2K-MF-6RU': 1, u'NCS2K-200G-CK': 2, u'MF-MPO-16LC': 8, u'MF-UPG-4': 1}",27,39,0.6923076923076923
