@@ -80,7 +80,7 @@ def get_all_optical_device_ids(auth, host):
 
 def determine_capacity(physicalLocation):
     if physicalLocation == 'SHELF':
-        return 8
+        return 6
     location = physicalLocation[0:6]
     if 'SHELF-' == location:
         productFamily = physicalLocation[-4:]
@@ -91,15 +91,18 @@ def determine_capacity(physicalLocation):
         if 'M15]' == productFamily:
             return 15
         raise ValueError("SHELF")
-    if 'PSHELF' == location:
-        productFamily = physicalLocation[-9:]
-        # if '-2RU]' == productFamily:
-        #     return 2
-        if 'F-MF-6RU]' == productFamily:
-            return 14
-        if 'MF10-6RU]' == productFamily:
-            return 10
-        raise ValueError("PSHELF")
+    #****************************************
+    #Not worrying about p-shelf at the moment
+    # if 'PSHELF' == location:
+    #     productFamily = physicalLocation[-9:]
+    #     # if '-2RU]' == productFamily:
+    #     #     return 2
+    #     if 'F-MF-6RU]' == productFamily:
+    #         return 14
+    #     if 'MF10-6RU]' == productFamily:
+    #         return 10
+    #     raise ValueError("PSHELF")
+    #****************************************
     return 0
 
 def create_device_model(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization):
@@ -122,13 +125,23 @@ def print_device_list_capacity_summary(allDevices):
             print value
         print
 
-def get_NCS2KMOD_dev(auth, host):
+def get_NCS2K_list(auth, host):
+    id_list = []
+    extension = 'InventoryDetails'
+    filters = "summary.deviceType=startsWith(\"Cisco NCS 2\")"
+    response = make_get_req(auth, host, extension, filters)
+    for item in response['queryResponse']['entityId']:
+        id_list.append(item['$'])
+    return id_list
+
+def get_NCS2KMOD_dev(auth, host, devID):
     allDevices = []
     # extension = 'InventoryDetails'
     # filters = ".full=true&summary.deviceType=startsWith(\"Cisco NCS 2\")"
     # response = make_get_req(auth, host, extension, filters)
     
-    extension = 'InventoryDetails/7688694'
+    #extension = 'InventoryDetails/7688694'
+    extension = 'InventoryDetails/'+devID
     response = make_get_req(auth, host, extension)
 
     deviceList = response['queryResponse']['entity']
@@ -151,6 +164,7 @@ def get_NCS2KMOD_dev(auth, host):
 
         validChassis = False
         shelf_count = 1
+        tnc_cap = 0
         chassis = ''
 
         for module in modules['module']:
@@ -163,11 +177,15 @@ def get_NCS2KMOD_dev(auth, host):
 
                 chassisCapacity = determine_capacity(physicalLocation)
                 if chassisCapacity==2: 
+                    tnc_cap = 1
                     chassis = 'NCS2002'
                 if chassisCapacity==6: 
+                    tnc_cap = 2
                     chassis = 'NCS2006'
                 if chassisCapacity==15: 
+                    tnc_cap = 2
                     chassis = 'NCS2015'
+
 
                 if physicalLocation in chasses:
                     #print "Already counted: " + physicalLocation
@@ -181,17 +199,17 @@ def get_NCS2KMOD_dev(auth, host):
                         validChassis = True
                         capacity += chassisCapacity
                         chasses.append(physicalLocation)
-                        chassis = chassis+'[Dev'+str(shelf_count)+']'
+                        chassis = chassis+'['+physicalLocation[0:7]+']'
                         shelf_count +=1
                         chassis_list.append(chassis)
-                        chassis_parings[chassis] = [0,0] #--> [TNC, LC]
+                        chassis_parings[chassis] = [0,tnc_cap,0,chassisCapacity] #--> [TNC, LC]
                         
 
             if validChassis == True:
                 if productName in LC:
                     #print '********* IN ********'
                     slotUsage += 1
-                    chassis_parings[chassis][1] +=1
+                    chassis_parings[chassis][2] +=1
                     if productName in lineCards:
                         lineCards[productName] += 1
                     else:
@@ -206,15 +224,32 @@ def get_NCS2KMOD_dev(auth, host):
             # print "\n++++++++++++++++++++++++++++++\n\n"
 
             validChassis = False
-        print
-        print chassis_list
-        print chassis_parings
+            chassis = 'null'
+            chassisCapacity = 0
+        
+        # print
+        # print chassis_list
+        # print deviceType
+        # print 
+        print "++++++ Summary for "+deviceName+" ++++++"
+        print "\tDevice ID: "+str(deviceID)
+        print "\tAddress: "+str(deviceIP)
+        if len(chasses)>1:
+            print "\n\tMulti Chassis Rack - "+str(len(chasses))+" Shelves"
+        else:
+            print "\n\tSingle Chassis Rack"
+        for dev in chassis_parings:
+            print "\t"+dev+":"
+            tnc_util = (float(chassis_parings[dev][0])/chassis_parings[dev][1])*100
+            lc_util = (float(chassis_parings[dev][2])/chassis_parings[dev][3])*100
+            print "\t\tControllers: "+str(chassis_parings[dev][0])+"/"+str(chassis_parings[dev][1])+" Slots Populated - "+str(format(tnc_util, '.0f'))+"% Utilization"
+            print "\t\tService Cards: "+str(chassis_parings[dev][2])+"/"+str(chassis_parings[dev][3])+" Slots Populated - "+str(format(lc_util, '.0f'))+"% Utilization"
         print
         utilization = float(slotUsage) / float(capacity)
         thisDevice = create_device_model(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization)
         allDevices.append(thisDevice)
 
-    print_device_list_capacity_summary(allDevices)
+    #print_device_list_capacity_summary(allDevices)
     return allDevices
 
 def get_ip_map(auth, host, id_list):
@@ -229,47 +264,6 @@ def get_ip_map(auth, host, id_list):
 
     return opt_list
 
-# def get_dev_det(auth, host,dev):
-#     inv_dets = {}
-    
-#     url = "https://"+host+"/webacs/api/v1/data/InventoryDetails/"+dev+".json"
-#     headers = get_headers(auth)
-#     response = get_response(url, headers, requestType = "GET", verify = False)
-#     # print json.dumps(response['queryResponse']['entity'][0]['inventoryDetailsDTO']['modules']['module'], indent=2)
-#     # print len(response['queryResponse']['entity'][0]['inventoryDetailsDTO']['modules']['module'])
-#     dev_type = response['queryResponse']['entity'][0]['inventoryDetailsDTO']['summary']['deviceType']
-#     mod_list = response['queryResponse']['entity'][0]['inventoryDetailsDTO']['modules']['module']
-#     i = 0
-#     for item in mod_list:
-#         r_list = []
-#         if item['equipmentType'] == 'MODULE': #and item['physicalLocation'] == 'SHELF':
-#             # print json.dumps(item, indent=2)
-
-#             i = i+1
-#             r_list.append(str(dev_type))
-#             r_list.append(str(item['productName']))
-
-#             try:
-#                 r_list.append(str(item['description']))
-#             except:
-#                 r_list.append(str('No Description Listed'))
-            
-#             try:
-#                 r_list.append(str(item['physicalLocation']))
-#             except:
-#                 r_list.append(str('No Location Listed'))
-
-        
-#             inv_key = dev+' ['+str(i)+']'
-#             inv_dets[inv_key] = r_list
-
-#     # print '\n-------------------------'
-#     # print str(i) + " Modules"
-#     # print '-------------------------\n'
-
-#     return inv_dets
-
-    # print json.dumps(response['queryResponse']['entity'][0]['inventoryDetailsDTO']['udiDetails'], indent=2)
 
 if __name__ == '__main__':
     #Disable warnings since we are not verifying SSL
@@ -285,22 +279,16 @@ if __name__ == '__main__':
     auth = base64.b64encode(user + ":" + pwd)
 
 
-    # id_ip_map = get_ip_map(auth, host_addr, get_all_optical_device_ids(auth, host_addr))
-    
-    # for k in id_ip_map:
-    #   v = id_ip_map[k]
-    #   print (k, v)
+    deviceList = get_NCS2K_list(auth, host_addr)
+    #deviceList=['7688693']
+    for dev in deviceList:
+        get_NCS2KMOD_dev(auth, host_addr, dev)
 
-    # print get_inventory(auth, host_addr)
-    # print get_single_device(auth, host_addr, "7688707")
-    # print get_all_optical_device_ids(auth, host_addr)
-    deviceList = get_NCS2KMOD_dev(auth, host_addr)
-
-    ref_out = '2k_update.csv'
-    with open(ref_out, 'w') as output:
-        fieldnames = ['deviceID', 'deviceIP', 'deviceName', 'deviceType', 'lineCards', 'slotUsage', 'capacity', 'utilization']
-        out_writer = csv.DictWriter(output, fieldnames=fieldnames)
-        out_writer.writerow({'deviceID': 'Device ID', 'deviceIP':'Device IP', 'deviceName':'Device Name', 'deviceType':'Device Type', 'lineCards':'Line Cards', 'slotUsage':'Slot Usage', 'capacity':'Capacity', 'utilization':'Utilization'})
-        for device in deviceList:
-            out_writer.writerow({'deviceID':device['deviceID'], 'deviceIP':device['deviceIP'], 'deviceName':device['deviceName'],'deviceType':device['deviceType'], 'lineCards':device['lineCards'], 'slotUsage':device['slotUsage'], 'capacity':device['capacity'], 'utilization':device['utilization']})
-    
+    # ref_out = '2k_update.csv'
+    # with open(ref_out, 'w') as output:
+    #     fieldnames = ['deviceID', 'deviceIP', 'deviceName', 'deviceType', 'lineCards', 'slotUsage', 'capacity', 'utilization']
+    #     out_writer = csv.DictWriter(output, fieldnames=fieldnames)
+    #     out_writer.writerow({'deviceID': 'Device ID', 'deviceIP':'Device IP', 'deviceName':'Device Name', 'deviceType':'Device Type', 'lineCards':'Line Cards', 'slotUsage':'Slot Usage', 'capacity':'Capacity', 'utilization':'Utilization'})
+    #     for device in deviceList:
+    #         out_writer.writerow({'deviceID':device['deviceID'], 'deviceIP':device['deviceIP'], 'deviceName':device['deviceName'],'deviceType':device['deviceType'], 'lineCards':device['lineCards'], 'slotUsage':device['slotUsage'], 'capacity':device['capacity'], 'utilization':device['utilization']})
+    # 
