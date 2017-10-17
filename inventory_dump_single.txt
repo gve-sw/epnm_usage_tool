@@ -1,0 +1,21 @@
+++++++ Summary for RJO_EN ++++++
+	Device ID: 7688694
+	Address: 10.89.204.121
+
+	Multi Chassis Rack - 5 Shelves
+	Active Shelves:
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 3/6 Slots Populated - 50% Utilization
+	NCS2015[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 6/15 Slots Populated - 40% Utilization
+	NCS2006[SHELF-3]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 4/6 Slots Populated - 67% Utilization
+	Passive Shelves:
+	10 Slot Passive Unit[PSHELF-2]:
+		Service Cards: 8/10 Slots Populated - 80% Utilization
+	14 Slot Passive Unit[PSHELF-1]:
+		Service Cards: 2/14 Slots Populated - 14% Utilization
+

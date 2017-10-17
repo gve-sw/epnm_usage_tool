@@ -215,6 +215,8 @@ def get_NCS2KMOD_dev(auth, host, devID):
 
             if physicalModule:
                 physicalLocation = module["physicalLocation"]
+                if physicalLocation == "PSHELF-1[PSHELF-MF-6RU]":
+                    print json.dumps(module, indent=2)
                 shelf_info = determine_shelf_info(physicalLocation)
                 shelfType = shelf_info['shelfType']
                 controllerCapacity = shelf_info['controllerCapacity']
@@ -240,8 +242,12 @@ def get_NCS2KMOD_dev(auth, host, devID):
                         elif shelfType == "passive": #passive
                             passive_chassis_list.append(chassis)
             
+            productName=productName.replace('=','')
             if validChassis == True:
+                
                 if productName in LC:
+                    if physicalLocation == "PSHELF-1[PSHELF-MF-6RU]":
+                        print productName   
                     #print '********* IN ********'
                     slotUsage += 1
                     chassis_pairings[chassis][2] += 1
@@ -288,13 +294,18 @@ if __name__ == '__main__':
     auth = base64.b64encode(user + ":" + pwd)
 
 
-    deviceList = get_NCS2K_list(auth, host_addr)
-    # deviceList=['7688694']
+    #deviceList = get_NCS2K_list(auth, host_addr)
+    deviceList=['7688694']
 
-    output_file = 'inventory_dump.txt'
+    output_file = 'inventory_dump_single.txt'
     with open(output_file, "wb") as f:
         for dev in deviceList:
             f.write(get_NCS2KMOD_dev(auth, host_addr, dev))
+
+    # output_file = 'inventory_dump.txt'
+    # with open(output_file, "wb") as f:
+    #     for dev in deviceList:
+    #         f.write(get_NCS2KMOD_dev(auth, host_addr, dev))
 
         
     
