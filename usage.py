@@ -13,6 +13,7 @@ from xlrd import open_workbook
 SLOTS = []
 TNC = []
 LC = []
+TWORU = []
 
 with open("slotList.csv", 'r') as slots:
     reader = csv.reader(slots)
@@ -24,10 +25,15 @@ with open("tnc_list.csv", 'r') as tnc:
     for row in reader:
         TNC.append(row[0])
 
-with open("lincard_list.csv", 'r') as lc:
+with open("revised_linecard_list.csv", 'r') as lc:
     reader = csv.reader(lc)
     for row in reader:
         LC.append(row[0])
+
+with open("two_RU_linecard_list.csv", 'r') as two_ru:
+    reader = csv.reader(two_ru)
+    for row in reader:
+        TWORU.append(row[0])
 
 def get_headers(auth, content_type = "application", cache_control = "no-cache"):
     headers={
@@ -78,7 +84,7 @@ def get_all_optical_device_ids(auth, host):
     id_list = get_device_ID_list(response)
     return id_list
 
-def make_shelf_info(shelfTypeRaw, capacity, chassis, controllerCapacity):
+def make_shelf_info(shelfTypeRaw, capacity, chassisType, controllerCapacity):
     if shelfTypeRaw == 0:
         shelfType = "active"
     elif shelfTypeRaw == 1:
@@ -88,7 +94,7 @@ def make_shelf_info(shelfTypeRaw, capacity, chassis, controllerCapacity):
     return {
         'shelfType' : shelfType,
         'capacity' : capacity,
-        'chassis' : chassis,
+        'chassisType' : chassisType,
         'controllerCapacity' : controllerCapacity
     }
 
@@ -114,7 +120,7 @@ def determine_shelf_info(physicalLocation):
         if 'F-MF-6RU]' == productFamily:
             return make_shelf_info(1,14,'14 Slot Passive Unit',0)
         if 'MF10-6RU]' == productFamily:
-            return make_shelf_info(1,10,'10 Slot Passive Unit',0)
+            return make_shelf_info(1,10,'10 Double Slot Passive Unit',0)
         raise ValueError("PSHELF")
     #****************************************
     return make_shelf_info("Neither",0,'Not line card or controller',0)
@@ -206,7 +212,7 @@ def get_NCS2KMOD_dev(auth, host, devID):
 
         validChassis = False
         tnc_cap = 0
-        chassis = ''
+        chassisType = ''
 
         for module in modules['module']:
             productName = module["productName"]
@@ -220,15 +226,15 @@ def get_NCS2KMOD_dev(auth, host, devID):
                 shelf_info = determine_shelf_info(physicalLocation)
                 shelfType = shelf_info['shelfType']
                 controllerCapacity = shelf_info['controllerCapacity']
-                chassis = shelf_info['chassis']
+                chassisType = shelf_info['chassisType']
                 validModule = shelfType != "Neither"
                 # Module must be a linecard or controller in a shelf
 
                 if validModule:
                     if shelfType == "active":
-                        chassis = chassis+'['+physicalLocation[0:7]+']'       
+                        fullChassisName = chassisType+'['+physicalLocation[0:7]+']'       
                     elif shelfType == "passive":
-                        chassis = chassis+'['+physicalLocation[0:8]+']'
+                        fullChassisName = chassisType+'['+physicalLocation[0:8]+']'
                     validChassis = True
                     firstAppearance = not physicalLocation in chasses
                     # Seeing the shelf for the first time
@@ -236,11 +242,11 @@ def get_NCS2KMOD_dev(auth, host, devID):
                     if firstAppearance:
                         capacity += shelf_info['capacity']
                         chasses.append(physicalLocation)
-                        chassis_pairings[chassis] = [0,controllerCapacity,0,shelf_info['capacity']]
+                        chassis_pairings[fullChassisName] = [0,controllerCapacity,0,shelf_info['capacity']]
                         if shelfType == "active": #active
-                            active_chassis_list.append(chassis)
+                            active_chassis_list.append(fullChassisName)
                         elif shelfType == "passive": #passive
-                            passive_chassis_list.append(chassis)
+                            passive_chassis_list.append(fullChassisName)
             
             productName=productName.replace('=','')
             if validChassis == True:
@@ -249,16 +255,20 @@ def get_NCS2KMOD_dev(auth, host, devID):
                     if physicalLocation == "PSHELF-1[PSHELF-MF-6RU]":
                         print productName   
                     #print '********* IN ********'
-                    slotUsage += 1
-                    chassis_pairings[chassis][2] += 1
+                    chassis_pairings[fullChassisName][2] += 1
                     if productName in lineCards:
                         lineCards[productName] += 1
                     else:
                         lineCards[productName] = 1
+
+                    if productName in TWORU and chassisType != "10 Double Slot Passive Unit":
+                        print deviceIP
+                        print productName
+                        print chassis_pairings[fullChassisName][2]
+                        chassis_pairings[fullChassisName][2] += 1
                 if productName in TNC:
                     #print '********* IN ********'
-                    slotUsage += 1
-                    chassis_pairings[chassis][0] += 1
+                    chassis_pairings[fullChassisName][0] += 1
                 validChassis = False
 
         rstring += build_device_string(deviceName, deviceID, deviceIP, chassis_pairings, chasses, active_chassis_list, passive_chassis_list)
@@ -294,8 +304,8 @@ if __name__ == '__main__':
     auth = base64.b64encode(user + ":" + pwd)
 
 
-    #deviceList = get_NCS2K_list(auth, host_addr)
-    deviceList=['7688694']
+    deviceList = get_NCS2K_list(auth, host_addr)
+    # deviceList=['7688694']
 
     output_file = 'inventory_dump_single.txt'
     with open(output_file, "wb") as f:
