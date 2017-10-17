@@ -78,18 +78,32 @@ def get_all_optical_device_ids(auth, host):
     id_list = get_device_ID_list(response)
     return id_list
 
-def determine_capacity(physicalLocation):
+def make_shelf_info(shelfTypeRaw, capacity, chassis, controllerCapacity):
+    if shelfTypeRaw == 0:
+        shelfType = "active"
+    elif shelfTypeRaw == 1:
+        shelfType = "passive"
+    else:
+        shelfType = shelfTypeRaw
+    return {
+        'shelfType' : shelfType,
+        'capacity' : capacity,
+        'chassis' : chassis,
+        'controllerCapacity' : controllerCapacity
+    }
+
+def determine_shelf_info(physicalLocation):
     if physicalLocation == 'SHELF':
-        return [0,6]
+        return make_shelf_info(0,6,'NCS2006',2)
     location = physicalLocation[0:6] #0==active, 1==passive
     if 'SHELF-' == location:
         productFamily = physicalLocation[-4:]
         if '-M2]' == productFamily:
-            return [0,2]
+            return make_shelf_info(0,2,'NCS2002',1)
         if '-M6]' == productFamily:
-            return [0,6]
+            return make_shelf_info(0,6,'NCS2006',2)
         if 'M15]' == productFamily:
-            return [0,15]
+            return make_shelf_info(0,15,'NCS2015',2)
         raise ValueError("SHELF")
     #****************************************
     #Not worrying about p-shelf at the moment
@@ -98,12 +112,12 @@ def determine_capacity(physicalLocation):
         # if '-2RU]' == productFamily:
         #     return ['p',2]
         if 'F-MF-6RU]' == productFamily:
-            return [1,14]
+            return make_shelf_info(1,14,'14 Slot Passive Unit',0)
         if 'MF10-6RU]' == productFamily:
-            return [1,10]
+            return make_shelf_info(1,10,'10 Slot Passive Unit',0)
         raise ValueError("PSHELF")
     #****************************************
-    return [99,0]
+    return make_shelf_info("Neither",0,'Not line card or controller',0)
 
 def create_device_model(deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization):
     device = {
@@ -134,8 +148,33 @@ def get_NCS2K_list(auth, host):
         id_list.append(item['$'])
     return id_list
 
+def build_device_string(deviceName, deviceID, deviceIP, chassis_pairings, chasses, active_chassis_list, passive_chassis_list):
+    rstring=''
+    rstring+="++++++ Summary for "+deviceName+" ++++++"
+    rstring+= "\n\tDevice ID: "+str(deviceID)
+    rstring+= "\n\tAddress: "+str(deviceIP)
+    if len(chassis_pairings)>1:
+        rstring+= "\n\n\tMulti Chassis Rack - "+str(len(chasses))+" Shelves"
+    else:
+        rstring+= "\n\n\tSingle Chassis Rack"
+    if len(active_chassis_list)>0:
+        rstring+= "\n\tActive Shelves:"
+        for dev in active_chassis_list:
+            rstring+= "\n\t"+dev+":"
+            tnc_util = (float(chassis_pairings[dev][0])/chassis_pairings[dev][1])*100
+            lc_util = (float(chassis_pairings[dev][2])/chassis_pairings[dev][3])*100
+            rstring+= "\n\t\tControllers: "+str(chassis_pairings[dev][0])+"/"+str(chassis_pairings[dev][1])+" Slots Populated - "+str(format(tnc_util, '.0f'))+"% Utilization"
+            rstring+= "\n\t\tService Cards: "+str(chassis_pairings[dev][2])+"/"+str(chassis_pairings[dev][3])+" Slots Populated - "+str(format(lc_util, '.0f'))+"% Utilization"
+    if len(passive_chassis_list)>0:
+        rstring+= "\n\tPassive Shelves:"
+        for dev in passive_chassis_list:
+            rstring+= "\n\t"+dev+":"
+            lc_util = (float(chassis_pairings[dev][2])/chassis_pairings[dev][3])*100
+            rstring+= "\n\t\tService Cards: "+str(chassis_pairings[dev][2])+"/"+str(chassis_pairings[dev][3])+" Slots Populated - "+str(format(lc_util, '.0f'))+"% Utilization"
+    rstring+='\n\n'
+    return rstring
+
 def get_NCS2KMOD_dev(auth, host, devID):
-    allDevices = []
     # extension = 'InventoryDetails'
     # filters = ".full=true&summary.deviceType=startsWith(\"Cisco NCS 2\")"
     # response = make_get_req(auth, host, extension, filters)
@@ -145,6 +184,7 @@ def get_NCS2KMOD_dev(auth, host, devID):
     response = make_get_req(auth, host, extension)
 
     deviceList = response['queryResponse']['entity']
+    rstring = ""
 
     for device in deviceList:
         summary = device['inventoryDetailsDTO']['summary']
@@ -156,9 +196,8 @@ def get_NCS2KMOD_dev(auth, host, devID):
 
         active_chassis_list=[]
         passive_chassis_list=[]
-        chassis_parings = {}
+        chassis_pairings = {}
         chassisType = ''
-
 
         chasses = []
         slotUsage = 0
@@ -166,69 +205,46 @@ def get_NCS2KMOD_dev(auth, host, devID):
         modules = device['inventoryDetailsDTO']['modules']
 
         validChassis = False
-        shelf_count = 1
         tnc_cap = 0
         chassis = ''
 
         for module in modules['module']:
-            #print 'chassis: '+str(chasses)
-
             productName = module["productName"]
-            if "physicalLocation" in module:
-                
+            physicalModule = "physicalLocation" in module
+            # Module must have a physical location
+
+            if physicalModule:
                 physicalLocation = module["physicalLocation"]
+                shelf_info = determine_shelf_info(physicalLocation)
+                shelfType = shelf_info['shelfType']
+                controllerCapacity = shelf_info['controllerCapacity']
+                chassis = shelf_info['chassis']
+                validModule = shelfType != "Neither"
+                # Module must be a linecard or controller in a shelf
 
-                chassisCapacity = determine_capacity(physicalLocation)
-                if chassisCapacity[0] == 0: #active
-                    chassisType = 'active'
-                    if chassisCapacity[1]==2: 
-                        tnc_cap = 1
-                        chassis = 'NCS2002'
-                    if chassisCapacity[1]==6: 
-                        tnc_cap = 2
-                        chassis = 'NCS2006'
-                    if chassisCapacity[1]==15: 
-                        tnc_cap = 2
-                        chassis = 'NCS2015'
-                elif chassisCapacity[0]==1:
-                    chassisType = 'passive'
-                    if chassisCapacity[1]==4: 
-                        chassis = '4 Slot Passive Unit'
-                    if chassisCapacity[1]==10: 
-                        chassis = '10 Slot Passive Unit'
-                    if chassisCapacity[1]==14: 
-                        chassis = '14 Slot Passive Unit'
-
-                if physicalLocation in chasses:
-                    #print "Already counted: " + physicalLocation
-                    #print chasses.count(physicalLocation)
-                    if chassisCapacity[0] == 0: chassis = active_chassis_list[active_chassis_list.index(chassis+'['+physicalLocation[0:7]+']')]#active        
-                    elif chassisCapacity[0] == 1: chassis = passive_chassis_list[passive_chassis_list.index(chassis+'['+physicalLocation[0:8]+']')]#passive
+                if validModule:
+                    if shelfType == "active":
+                        chassis = chassis+'['+physicalLocation[0:7]+']'       
+                    elif shelfType == "passive":
+                        chassis = chassis+'['+physicalLocation[0:8]+']'
                     validChassis = True
-                else:
-                    chassisCapacity = determine_capacity(physicalLocation)
-                    #print physicalLocation+' : '+str(chassisCapacity)
-                    if chassisCapacity[1] > 0:
-                        validChassis = True
-                        capacity += chassisCapacity[1]
+                    firstAppearance = not physicalLocation in chasses
+                    # Seeing the shelf for the first time
+
+                    if firstAppearance:
+                        capacity += shelf_info['capacity']
                         chasses.append(physicalLocation)
-                        if chassisCapacity[0] == 0: #active
-                            chassis = chassis+'['+physicalLocation[0:7]+']'
-                            shelf_count +=1
+                        chassis_pairings[chassis] = [0,controllerCapacity,0,shelf_info['capacity']]
+                        if shelfType == "active": #active
                             active_chassis_list.append(chassis)
-                            chassis_parings[chassis] = [0,tnc_cap,0,chassisCapacity[1]] #--> [TNC, LC]
-                        elif chassisCapacity[0] == 1: #passive
-                            chassis = chassis+'['+physicalLocation[0:8]+']'
-                            shelf_count +=1
+                        elif shelfType == "passive": #passive
                             passive_chassis_list.append(chassis)
-                            chassis_parings[chassis] = [0,0,0,chassisCapacity[1]] #--> [TNC, LC]
-                        
             
             if validChassis == True:
                 if productName in LC:
                     #print '********* IN ********'
                     slotUsage += 1
-                    chassis_parings[chassis][2] +=1
+                    chassis_pairings[chassis][2] += 1
                     if productName in lineCards:
                         lineCards[productName] += 1
                     else:
@@ -236,45 +252,14 @@ def get_NCS2KMOD_dev(auth, host, devID):
                 if productName in TNC:
                     #print '********* IN ********'
                     slotUsage += 1
-                    chassis_parings[chassis][0] +=1
+                    chassis_pairings[chassis][0] += 1
+                validChassis = False
 
-            # print json.dumps(module, indent=2)
-            # print 'slot usage: '+str(slotUsage)
-            # print "\n++++++++++++++++++++++++++++++\n\n"
+        rstring += build_device_string(deviceName, deviceID, deviceIP, chassis_pairings, chasses, active_chassis_list, passive_chassis_list)
 
-            validChassis = False
-            chassis = 'null'
-            chassisCapacity = 0
-       
-        # print
-        # print chassis_list
-        # print deviceType
-        # print 
-        rstring=''
-        rstring+="++++++ Summary for "+deviceName+" ++++++"
-        rstring+= "\n\tDevice ID: "+str(deviceID)
-        rstring+= "\n\tAddress: "+str(deviceIP)
-        if len(chassis_parings)>1:
-            rstring+= "\n\n\tMulti Chassis Rack - "+str(len(chasses))+" Shelves"
-        else:
-            rstring+= "\n\n\tSingle Chassis Rack"
-        if len(active_chassis_list)>0:
-            rstring+= "\n\tActive Shelves:"
-            for dev in active_chassis_list:
-                rstring+= "\n\t"+dev+":"
-                tnc_util = (float(chassis_parings[dev][0])/chassis_parings[dev][1])*100
-                lc_util = (float(chassis_parings[dev][2])/chassis_parings[dev][3])*100
-                rstring+= "\n\t\tControllers: "+str(chassis_parings[dev][0])+"/"+str(chassis_parings[dev][1])+" Slots Populated - "+str(format(tnc_util, '.0f'))+"% Utilization"
-                rstring+= "\n\t\tService Cards: "+str(chassis_parings[dev][2])+"/"+str(chassis_parings[dev][3])+" Slots Populated - "+str(format(lc_util, '.0f'))+"% Utilization"
-        if len(passive_chassis_list)>0:
-            rstring+= "\n\tPassive Shelves:"
-            for dev in passive_chassis_list:
-                rstring+= "\n\t"+dev+":"
-                lc_util = (float(chassis_parings[dev][2])/chassis_parings[dev][3])*100
-                rstring+= "\n\t\tService Cards: "+str(chassis_parings[dev][2])+"/"+str(chassis_parings[dev][3])+" Slots Populated - "+str(format(lc_util, '.0f'))+"% Utilization"
-        rstring+='\n\n'
-    #print_device_list_capacity_summary(allDevices)
     return rstring
+
+
 
 def get_ip_map(auth, host, id_list):
     opt_list = {}
