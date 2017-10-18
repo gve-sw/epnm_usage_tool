@@ -1,0 +1,55 @@
+//ADDED MF-8X10G-FO TO ONE RU LINECARD LIST-- SHOULD BE GOOD
+
+UPDATED-----> good now
+++++++ Summary for SPO_PH ++++++ —passive issue***/shelf2issue
+	Device ID: 7688703
+	Address: 10.89.204.45
+
+	Multi Chassis Rack - 4 Shelves
+	Active Shelves:
+	NCS2006[SHELF-3]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
+	NCS2006[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 4/6 Slots Populated - 67% Utilization
+	Passive Shelves:
+	10 Double Slot Passive Unit[PSHELF-1]:
+		Service Cards: 5/10 Slots Populated - 50% Utilization
+
+***NCS2K-MR-MXP-LIC--> 5 slots fixes issue/fixes both chassis (should be good with add)
+
+UPDATED----> good now
+++++++ Summary for RJO_AM ++++++ —NCS2K-MR-MXP-LIC ISSUE
+
+	Device ID: 7688707
+	Address: 10.89.204.27
+
+	Multi Chassis Rack - 4 Shelves
+	Active Shelves:
+	NCS2015[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 6/15 Slots Populated - 40% Utilization
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 2/6 Slots Populated - 33% Utilization
+	NCS2006[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
+	Passive Shelves:
+	10 Double Slot Passive Unit[PSHELF-1]:
+		Service Cards: 5/10 Slots Populated - 50% Utilization
+
+Detects line cards- not chassis
+++++++ Summary for NCS2002-Node20 ++++++ —WEIRD CHASSIS ISSUE
+	Device ID: 143055956
+	Address: 10.89.204.20
+
+	Single Chassis Rack
+	Active Shelves:
+	NCS2006[SHELF]:
+		Controllers: 1/2 Slots Populated - 50% Utilization
+		Service Cards: 2/6 Slots Populated - 33% Utilization

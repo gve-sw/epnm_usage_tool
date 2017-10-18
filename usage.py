@@ -98,9 +98,18 @@ def make_shelf_info(shelfTypeRaw, capacity, chassisType, controllerCapacity):
         'controllerCapacity' : controllerCapacity
     }
 
-def determine_shelf_info(physicalLocation):
+def determine_shelf_info(physicalLocation, productName, deviceType):
     if physicalLocation == 'SHELF':
-        return make_shelf_info(0,6,'NCS2006',2)
+        if '-M2' in productName:
+            return make_shelf_info(0,2,'NCS2002',1)
+        elif '-M6' in productName:
+            return make_shelf_info(0,6,'NCS2006',2)
+        else:
+            if '06' == deviceType[-2:]:
+                return make_shelf_info(0,6,'NCS2006',2)
+            elif '02' == deviceType[-2:]:
+                return make_shelf_info(0,2,'NCS2002',1)
+
     location = physicalLocation[0:6] #0==active, 1==passive
     if 'SHELF-' == location:
         productFamily = physicalLocation[-4:]
@@ -221,9 +230,9 @@ def get_NCS2KMOD_dev(auth, host, devID):
 
             if physicalModule:
                 physicalLocation = module["physicalLocation"]
-                if physicalLocation == "PSHELF-1[PSHELF-MF-6RU]":
-                    print json.dumps(module, indent=2)
-                shelf_info = determine_shelf_info(physicalLocation)
+                
+                
+                shelf_info = determine_shelf_info(physicalLocation, productName, deviceType)
                 shelfType = shelf_info['shelfType']
                 controllerCapacity = shelf_info['controllerCapacity']
                 chassisType = shelf_info['chassisType']
@@ -249,11 +258,10 @@ def get_NCS2KMOD_dev(auth, host, devID):
                             passive_chassis_list.append(fullChassisName)
             
             productName=productName.replace('=','')
-            if validChassis == True:
-                
+            if validChassis == True:                
                 if productName in LC:
-                    if physicalLocation == "PSHELF-1[PSHELF-MF-6RU]":
-                        print productName   
+                    # if physicalLocation == "PSHELF-1[PSHELF-MF-6RU]":
+                    #     print productName   
                     #print '********* IN ********'
                     chassis_pairings[fullChassisName][2] += 1
                     if productName in lineCards:
@@ -262,9 +270,9 @@ def get_NCS2KMOD_dev(auth, host, devID):
                         lineCards[productName] = 1
 
                     if productName in TWORU and chassisType != "10 Double Slot Passive Unit":
-                        print deviceIP
-                        print productName
-                        print chassis_pairings[fullChassisName][2]
+                        # print deviceIP
+                        # print productName
+                        # print chassis_pairings[fullChassisName][2]
                         chassis_pairings[fullChassisName][2] += 1
                 if productName in TNC:
                     #print '********* IN ********'
@@ -272,7 +280,6 @@ def get_NCS2KMOD_dev(auth, host, devID):
                 validChassis = False
 
         rstring += build_device_string(deviceName, deviceID, deviceIP, chassis_pairings, chasses, active_chassis_list, passive_chassis_list)
-
     return rstring
 
 
@@ -283,7 +290,6 @@ def get_ip_map(auth, host, id_list):
     for item in id_list:
         extension = pre_extension + item
         response = make_get_req(auth, host, extension)
-        print response
         ip_addr = str(response['queryResponse']['entity'][0]['inventoryDetailsDTO']['summary']['ipAddress'])
         opt_list[item]=ip_addr
 
@@ -305,14 +311,14 @@ if __name__ == '__main__':
 
 
     deviceList = get_NCS2K_list(auth, host_addr)
-    # deviceList=['7688694']
+    #deviceList=['143055956']
 
     output_file = 'inventory_dump_single.txt'
     with open(output_file, "wb") as f:
         for dev in deviceList:
             f.write(get_NCS2KMOD_dev(auth, host_addr, dev))
 
-    # output_file = 'inventory_dump.txt'
+    #output_file = 'inventory_dump.txt'
     # with open(output_file, "wb") as f:
     #     for dev in deviceList:
     #         f.write(get_NCS2KMOD_dev(auth, host_addr, dev))
