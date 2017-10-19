@@ -1,4 +1,4 @@
-++++++ Summary for SPO_IG ++++++ —GOOD
+++++++ Summary for SPO_IG ++++++
 	Device ID: 7688693
 	Address: 10.89.204.39
 
@@ -8,7 +8,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for RJO_EN ++++++ —GOOD
+++++++ Summary for RJO_EN ++++++
 	Device ID: 7688694
 	Address: 10.89.204.121
 
@@ -29,7 +29,7 @@
 	14 Slot Passive Unit[PSHELF-1]:
 		Service Cards: 2/14 Slots Populated - 14% Utilization
 
-++++++ Summary for VRD_SC ++++++ —GOOD
+++++++ Summary for VRD_SC ++++++
 	Device ID: 7688695
 	Address: 10.89.204.89
 
@@ -39,7 +39,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for PAT_PT ++++++ —GOOD
+++++++ Summary for PAT_PT ++++++
 	Device ID: 7688696
 	Address: 10.89.204.29
 
@@ -49,7 +49,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for SPO_MB ++++++ —GOOD
+++++++ Summary for SPO_MB ++++++
 	Device ID: 7688697
 	Address: 10.89.204.38
 
@@ -59,7 +59,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 3/6 Slots Populated - 50% Utilization
 
-++++++ Summary for SERP_BR ++++++ —GOOD
+++++++ Summary for SERP_BR ++++++
 	Device ID: 7688698
 	Address: 10.89.204.242
 
@@ -69,7 +69,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 3/6 Slots Populated - 50% Utilization
 
-++++++ Summary for TTE_SC ++++++ —GOOD
+++++++ Summary for TTE_SC ++++++
 	Device ID: 7688699
 	Address: 10.89.204.238
 
@@ -79,7 +79,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for IZA_BR ++++++ —GOOD
+++++++ Summary for IZA_BR ++++++
 	Device ID: 7688700
 	Address: 10.89.204.241
 
@@ -89,7 +89,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for GJA_2AA ++++++ —GOOD
+++++++ Summary for GJA_2AA ++++++
 	Device ID: 7688701
 	Address: 10.89.204.32
 
@@ -99,7 +99,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for SPO_PH ++++++ —passive issue***/shelf2issue
+++++++ Summary for SPO_PH ++++++
 	Device ID: 7688703
 	Address: 10.89.204.45
 
@@ -113,12 +113,12 @@
 		Service Cards: 5/6 Slots Populated - 83% Utilization
 	NCS2006[SHELF-2]:
 		Controllers: 2/2 Slots Populated - 100% Utilization
-		Service Cards: 4/6 Slots Populated - 67% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
 	Passive Shelves:
 	10 Double Slot Passive Unit[PSHELF-1]:
-		Service Cards: 5/10 Slots Populated - 50% Utilization
+		Service Cards: 6/10 Slots Populated - 60% Utilization
 
-++++++ Summary for ADA_BR ++++++ —GOOD
+++++++ Summary for ADA_BR ++++++
 	Device ID: 7688704
 	Address: 10.89.204.239
 
@@ -128,7 +128,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 6/6 Slots Populated - 100% Utilization
 
-++++++ Summary for MRES_FL ++++++ —GOOD
+++++++ Summary for MRES_FL ++++++
 	Device ID: 7688705
 	Address: 10.89.204.30
 
@@ -138,7 +138,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for RJO_AC ++++++ —GOOD
+++++++ Summary for RJO_AC ++++++
 	Device ID: 7688706
 	Address: 10.89.204.67
 
@@ -148,8 +148,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 2/6 Slots Populated - 33% Utilization
 
-++++++ Summary for RJO_AM ++++++ —NCS2K-MR-MXP-LIC ISSUE
-
+++++++ Summary for RJO_AM ++++++
 	Device ID: 7688707
 	Address: 10.89.204.27
 
@@ -157,10 +156,10 @@
 	Active Shelves:
 	NCS2015[SHELF-1]:
 		Controllers: 2/2 Slots Populated - 100% Utilization
-		Service Cards: 6/15 Slots Populated - 40% Utilization
+		Service Cards: 11/15 Slots Populated - 73% Utilization
 	NCS2006[SHELF-2]:
 		Controllers: 2/2 Slots Populated - 100% Utilization
-		Service Cards: 2/6 Slots Populated - 33% Utilization
+		Service Cards: 4/6 Slots Populated - 67% Utilization
 	NCS2006[SHELF-1]:
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 5/6 Slots Populated - 83% Utilization
@@ -168,7 +167,7 @@
 	10 Double Slot Passive Unit[PSHELF-1]:
 		Service Cards: 5/10 Slots Populated - 50% Utilization
 
-++++++ Summary for CHP_AS ++++++ —GOOD
+++++++ Summary for CHP_AS ++++++
 	Device ID: 7688708
 	Address: 10.89.204.240
 
@@ -178,7 +177,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for STS_WL ++++++ —GOOD
+++++++ Summary for STS_WL ++++++
 	Device ID: 7688709
 	Address: 10.89.204.31
 
@@ -188,7 +187,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for GRM_BR ++++++ —GOOD
+++++++ Summary for GRM_BR ++++++
 	Device ID: 7688721
 	Address: 10.89.204.25
 
@@ -198,7 +197,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for R1 ++++++ —GOOD
+++++++ Summary for R1 ++++++
 	Device ID: 143055918
 	Address: 172.20.165.70
 
@@ -211,7 +210,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 4/6 Slots Populated - 67% Utilization
 
-++++++ Summary for R2 ++++++ —GOOD
+++++++ Summary for R2 ++++++
 	Device ID: 143055919
 	Address: 172.20.165.71
 
@@ -224,7 +223,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 1/6 Slots Populated - 17% Utilization
 
-++++++ Summary for R3 ++++++ —GOOD
+++++++ Summary for R3 ++++++
 	Device ID: 143055920
 	Address: 172.20.165.72
 
@@ -237,7 +236,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 5/6 Slots Populated - 83% Utilization
 
-++++++ Summary for R4 ++++++ —GOOD
+++++++ Summary for R4 ++++++
 	Device ID: 143055921
 	Address: 172.20.165.73
 
@@ -250,17 +249,17 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 5/6 Slots Populated - 83% Utilization
 
-++++++ Summary for NCS2002-Node20 ++++++ —WEIRD CHASSIS ISSUE
+++++++ Summary for NCS2002-Node20 ++++++
 	Device ID: 143055956
 	Address: 10.89.204.20
 
 	Single Chassis Rack
 	Active Shelves:
-	NCS2006[SHELF]:
-		Controllers: 1/2 Slots Populated - 50% Utilization
-		Service Cards: 2/6 Slots Populated - 33% Utilization
+	NCS2002[SHELF]:
+		Controllers: 1/1 Slots Populated - 100% Utilization
+		Service Cards: 2/2 Slots Populated - 100% Utilization
 
-++++++ Summary for NCS2006-Node70 ++++++ —GOOD
+++++++ Summary for NCS2006-Node70 ++++++
 	Device ID: 143055957
 	Address: 10.89.204.70
 
@@ -270,7 +269,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 6/6 Slots Populated - 100% Utilization
 
-++++++ Summary for NCS2006-Node103 ++++++ —GOOD
+++++++ Summary for NCS2006-Node103 ++++++
 	Device ID: 143055958
 	Address: 10.89.204.103
 
@@ -280,7 +279,7 @@
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 6/6 Slots Populated - 100% Utilization
 
-++++++ Summary for NCS2006-Node104 ++++++ —GOOD
+++++++ Summary for NCS2006-Node104 ++++++
 	Device ID: 143055959
 	Address: 10.89.204.104
 

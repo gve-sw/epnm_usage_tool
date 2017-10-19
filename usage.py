@@ -313,24 +313,13 @@ if __name__ == '__main__':
     deviceList = get_NCS2K_list(auth, host_addr)
     #deviceList=['143055956']
 
-    output_file = 'inventory_dump_single.txt'
-    with open(output_file, "wb") as f:
-        for dev in deviceList:
-            f.write(get_NCS2KMOD_dev(auth, host_addr, dev))
-
-    #output_file = 'inventory_dump.txt'
+    # output_file = 'inventory_dump_single.txt'
     # with open(output_file, "wb") as f:
     #     for dev in deviceList:
     #         f.write(get_NCS2KMOD_dev(auth, host_addr, dev))
 
-        
-    
+    output_file = 'inventory_dump.txt'
+    with open(output_file, "wb") as f:
+        for dev in deviceList:
+            f.write(get_NCS2KMOD_dev(auth, host_addr, dev))
 
-    # ref_out = '2k_update.csv'
-    # with open(ref_out, 'w') as output:
-    #     fieldnames = ['deviceID', 'deviceIP', 'deviceName', 'deviceType', 'lineCards', 'slotUsage', 'capacity', 'utilization']
-    #     out_writer = csv.DictWriter(output, fieldnames=fieldnames)
-    #     out_writer.writerow({'deviceID': 'Device ID', 'deviceIP':'Device IP', 'deviceName':'Device Name', 'deviceType':'Device Type', 'lineCards':'Line Cards', 'slotUsage':'Slot Usage', 'capacity':'Capacity', 'utilization':'Utilization'})
-    #     for device in deviceList:
-    #         out_writer.writerow({'deviceID':device['deviceID'], 'deviceIP':device['deviceIP'], 'deviceName':device['deviceName'],'deviceType':device['deviceType'], 'lineCards':device['lineCards'], 'slotUsage':device['slotUsage'], 'capacity':device['capacity'], 'utilization':device['utilization']})
-    # 
