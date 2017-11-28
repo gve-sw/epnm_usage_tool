@@ -1,0 +1,57 @@
+<style>
+.ul {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}
+</style>
+<div class="hero hero--indigo">
+    <div class="hero__content">
+        <div class="container center-xs">
+            <div class="row">
+                <div class="col-md-4 col-xl-2">
+                    <img style="max-height:150px" src="/static/web_app/public/img/globalnetwork.jpg">
+                </div>
+                <div class="col-md-8 col-xl-10">
+                    <div class="flex-fluid">
+                        <h2>Evolved Programmable Network Manager</h2>
+                        <h2>Alarm Reporting Application</h2>
+                        <br>
+                        <p class="text-large">Select a device below to view detailed report of alarms
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="section">
+        <div class="panel panel--loose panel--bordered">
+            <div class="row">
+                <div class="col-md-8 text-large">
+                    <h1 class="text-huge text-blue base-margin-bottom"><b>{{ arg_in }} Devices<b></h1>
+                    <hr>
+                </div>
+            </div>
+            <br>
+            {%if show%}
+                <div><a href="{% url 'loc_alarms' location=arg_in %}"><b>Click Here For Full Location Report</b></a></div>
+            {%endif%}
+            <br>
+            <table style="width: 100%">
+                {% for item in dev_list %}
+                    {% cycle '<tr>' '' ''%}
+                        {%if show%}
+                            <td class="text-large" style="padding: 15px 5%"><a href="{% url 'device' dev=item %}">{{ item }}</a></td>
+                        {%else%}
+                            <td class="text-large" style="padding: 15px 5%">{{ item }}</td>
+                        {%endif%}
+                        
+                    {% cycle '' '' '</tr>' %}
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+++++++ Summary for Site8ILA ++++++
+	Device ID: 7688693
+	Address: 10.89.204.39
+
+	Single Chassis Rack
+	Active Shelves:
+	NCS2006[SHELF]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 4/6 Slots Populated - 67% Utilization
+

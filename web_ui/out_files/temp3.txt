@@ -1,0 +1,575 @@
+['15454-M-TNC-K9', 'NCS2K-TNCS-K9', '15454-M-TNCE-K9', '15454-M-TSCE-K9', 'NCS2K-TNCS-O-K9', 'NCS2K-9-SMR17FS', 'NCS2K-9-SMR24FS', 'NCS2K-9-SMR34FS', 'NCS2K-20-SMRFS', 'NCS2K-20-SMRFS-CV', 'NCS2K-9-SMR17FS-L', 'NCS2K-9-SMR24FS-L', 'NCS2K-9-SMR34FS-L', 'NCS2K-20-SMRFS-L', 'L-NCS2K-SMR-FS', 'L-NCS2K-SMR-2P', 'L-NCS2K-SMR-4P', 'NCS2K-16-WXC-FS', '15454-40-SMR1-C', '15454-40-SMR2-C', 'MF-PPMESH8-5AD', 'MF-UPG-4', 'mf-deg-5', 'MF-MPO-16LC', 'NCS2K-MF-MPO-16LC', 'NCS2K-MF-2MPO-ADP', 'NCS2K-PPMESH8-5AD', 'NCS2K-MF-16AE-CFS', 'NCS2K-MF-10AD-CFS', 'NCS2K-MF-6AD-CFS', 'NCS2K-MF-2LC-ADP', 'NCS2K-HP-LC-2', 'NCS2K-MF-1RU', 'NCS2K-MF-6RU', 'NCS2K-MF10-6RU', 'NCS2K-MF-6RU-CVR', 'NCS2K-MF-DEG-5', 'NCS2K-MF-DEG-5-CV', 'NCS2K-MF-UPG-4', 'NCS2K-MF-UPG-4-CV', 'NCS2K-MF-16AD-CFS', 'NCS2K-MF-4X4-COFS', 'NCS2K-MF-MPO-8LC', 'NCS2K-MF-M16LC-CV', 'NCS2K-MF-MPO-20LC', 'NCS2K-MF-2SL-CVR', 'NCS2K-MF-COVER', 'NCS2K-2RU-COVER', 'NCS2K-MPO-LBK', 'NCS2K-LC-LBK', 'NCS2K-MPO16-LBK', 'NCS2K-MF-8X10G-FO', 'Optical Amplifiers', '15454-M-100G-LC-C', '15454-OPT-EDFA-17', '15454-OPT-EDFA-24', 'NCS2K-EDRA1-26C', 'NCS2K-EDRA1-35C', 'NCS2K-EDRA2-26C', 'NCS2K-EDRA2-35C', '15454-OPT-AMP-C', '15454-OPT-AMP-17C', '15454-M-RAMAN-CTP', '15454-M-RAMAN-COP', '15454-PSM', 'NCS2K-200G-CK', 'NCS2K-MR-MXP-LIC', 'L-NCS2K-MRE10-40G', 'L-NCS2K-MRE-100G', 'NCS2K-200G-CK-C', 'L-NCS2K-CK-CL', 'L-NCS2K-FS', 'L-NCS2K-DQPSK-LH', 'L-NCS2K-SD-FEC', 'L-NCS2K-SFEC-BPSK', 'L-NCS2K-SFEC-16Q', 'NCS2K-100G-CK-C', 'NCS2K-100ME-CKC', 'L-NCS2K-100G-FFU', 'L-NCS2K-100G-10G', 'NCS2K-400G-XP', 'NCS2K-400GXP-L-K9', 'L-NCS2K-100G-LIC', 'L-NCS2K-WDM-LIC', 'L-NCS2K-8QAM', 'L-NCS2K-16QAM']
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF-6RU]
+Already countedPSHELF-1[PSHELF-MF-6RU]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-1[SHELF-M15]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-1[SHELF-M15]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedPSHELF-2[PSHELF-MF10-6RU]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M15]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-3[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-19[SHELF-M15]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedSHELF-19[SHELF-M15]
+Already countedPSHELF-1[PSHELF-MF10-6RU]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+Already countedSHELF-2[SHELF-M6]
+Already countedSHELF-1[SHELF-M6]
+10.89.204.39
+0.5
+Cisco NCS 2006
+7688693
+SPO_IG
+4
+8
+{u'NCS2K-EDRA1-26C': 2, u'15454-M-TNC-K9': 2}
+8
+
+
+10.89.204.121
+2.17647058824
+Cisco NCS 2015
+7688694
+RJO_EN
+37
+17
+{u'NCS2K-MF10-6RU': 1, u'15454-M-TNCE-K9': 4, u'NCS2K-200G-CK-C': 4, u'NCS2K-20-SMRFS-CV': 4, u'NCS2K-TNCS-O-K9': 2, u'NCS2K-MF-6RU': 1, u'NCS2K-MF-M16LC-CV': 6, u'NCS2K-200G-CK': 2, u'NCS2K-MF-MPO-16LC': 2, u'MF-MPO-16LC': 8, u'MF-UPG-4': 1, u'NCS2K-MF-UPG-4-CV': 1, u'NCS2K-MF-DEG-5-CV': 1}
+49
+
+
+10.89.204.89
+0.5
+Cisco NCS 2006
+7688695
+VRD_SC
+4
+8
+{u'15454-M-TNCE-K9': 1, u'NCS2K-EDRA1-26C': 2, u'15454-M-TNC-K9': 1}
+8
+
+
+10.89.204.29
+0.5
+Cisco NCS 2006
+7688696
+PAT_PT
+4
+8
+{u'15454-OPT-EDFA-17': 1, u'NCS2K-TNCS-O-K9': 2, u'NCS2K-EDRA2-26C': 1}
+8
+
+
+10.89.204.38
+0.5
+Cisco NCS 2006
+7688697
+SPO_MB
+4
+8
+{u'15454-M-TNC-K9': 2, u'15454-OPT-EDFA-17': 1, u'NCS2K-EDRA2-26C': 1}
+8
+
+
+10.89.204.242
+0.5
+Cisco NCS 2006
+7688698
+SERP_BR
+4
+8
+{u'15454-M-TNC-K9': 1, u'15454-OPT-EDFA-17': 1, u'NCS2K-TNCS-O-K9': 1, u'NCS2K-EDRA2-26C': 1}
+8
+
+
+10.89.204.238
+0.5
+Cisco NCS 2006
+7688699
+TTE_SC
+4
+8
+{u'15454-M-TNC-K9': 2, u'NCS2K-EDRA1-26C': 2}
+8
+
+
+10.89.204.241
+0.5
+Cisco NCS 2006
+7688700
+IZA_BR
+4
+8
+{u'NCS2K-EDRA1-26C': 2, u'15454-M-TNCE-K9': 1, u'15454-M-TNC-K9': 1}
+8
+
+
+10.89.204.32
+0.5
+Cisco NCS 2006
+7688701
+GJA_2AA
+4
+8
+{u'NCS2K-EDRA1-26C': 2, u'NCS2K-TNCS-O-K9': 2}
+8
+
+
+10.89.204.45
+2.625
+Cisco NCS 2006
+7688703
+SPO_PH
+21
+8
+{u'NCS2K-MR-MXP-LIC': 1, u'15454-M-TNCE-K9': 5, u'NCS2K-200G-CK-C': 3, u'NCS2K-20-SMRFS-CV': 3, u'NCS2K-TNCS-O-K9': 1, u'MF-MPO-16LC': 5, u'NCS2K-100G-CK-C': 1, u'NCS2K-400G-XP': 1, u'MF-PPMESH8-5AD': 1}
+32
+
+
+10.89.204.239
+0.625
+Cisco NCS 2006
+7688704
+ADA_BR
+5
+8
+{u'15454-M-TNC-K9': 2, u'NCS2K-EDRA2-26C': 2, u'NCS2K-16-WXC-FS': 1}
+8
+
+
+10.89.204.30
+0.5
+Cisco NCS 2006
+7688705
+MRES_FL
+4
+8
+{u'NCS2K-EDRA1-26C': 2, u'NCS2K-TNCS-O-K9': 2}
+8
+
+
+10.89.204.67
+0.5
+Cisco NCS 2006
+7688706
+RJO_AC
+4
+8
+{u'15454-OPT-EDFA-17': 2, u'NCS2K-TNCS-O-K9': 2}
+8
+
+
+10.89.204.27
+4.25
+Cisco NCS 2006
+7688707
+RJO_AM
+34
+8
+{u'NCS2K-MR-MXP-LIC': 7, u'NCS2K-MF10-6RU': 1, u'NCS2K-MF-MPO-16LC': 4, u'NCS2K-200G-CK-C': 2, u'NCS2K-TNCS-K9': 2, u'NCS2K-20-SMRFS-CV': 2, u'NCS2K-TNCS-O-K9': 2, u'NCS2K-20-SMRFS': 1, u'15454-M-TNCE-K9': 2, u'NCS2K-MF-M16LC-CV': 1, u'NCS2K-200G-CK': 1, u'NCS2K-PPMESH8-5AD': 1, u'MF-MPO-16LC': 5, u'NCS2K-100G-CK-C': 1, u'NCS2K-400G-XP': 1, u'MF-PPMESH8-5AD': 1}
+41
+
+
+10.89.204.240
+0.5
+Cisco NCS 2006
+7688708
+CHP_AS
+4
+8
+{u'15454-M-TNC-K9': 1, u'NCS2K-EDRA1-26C': 2, u'15454-M-TNCE-K9': 1}
+8
+
+
+10.89.204.31
+0.5
+Cisco NCS 2006
+7688709
+STS_WL
+4
+8
+{u'15454-M-TNC-K9': 1, u'15454-OPT-EDFA-17': 1, u'NCS2K-TNCS-O-K9': 1, u'NCS2K-EDRA2-26C': 1}
+8
+
+
+10.89.204.25
+0.5
+Cisco NCS 2006
+7688721
+GRM_BR
+4
+8
+{u'15454-M-TNC-K9': 1, u'15454-M-TNCE-K9': 1, u'NCS2K-EDRA1-26C': 2}
+8
+
+
+172.20.165.70
+1.75
+Cisco NCS 2006
+143055918
+R1
+14
+8
+{u'NCS2K-MF-UPG-4': 1, u'15454-M-100G-LC-C': 1, u'NCS2K-MF-DEG-5': 1, u'NCS2K-200G-CK-C': 1, u'NCS2K-TNCS-K9': 3, u'NCS2K-20-SMRFS-CV': 1, u'NCS2K-TNCS-O-K9': 1, u'NCS2K-20-SMRFS': 1, u'NCS2K-MF-M16LC-CV': 1, u'MF-MPO-16LC': 2, u'MF-UPG-4': 1}
+16
+
+
+172.20.165.71
+1.625
+Cisco NCS 2006
+143055919
+R2
+13
+8
+{u'NCS2K-MF-UPG-4': 1, u'15454-M-100G-LC-C': 1, u'NCS2K-MF-DEG-5': 1, u'NCS2K-200G-CK-C': 1, u'NCS2K-TNCS-K9': 3, u'NCS2K-20-SMRFS-CV': 2, u'NCS2K-TNCS-O-K9': 1, u'NCS2K-MF-MPO-16LC': 1, u'MF-MPO-16LC': 1, u'MF-UPG-4': 1}
+16
+
+
+172.20.165.72
+2.0
+Cisco NCS 2006
+143055920
+R3
+16
+8
+{u'MF-UPG-4': 1, u'NCS2K-MF-DEG-5': 1, u'NCS2K-200G-CK-C': 1, u'NCS2K-TNCS-K9': 3, u'NCS2K-20-SMRFS-CV': 3, u'NCS2K-TNCS-O-K9': 1, u'NCS2K-MF-MPO-16LC': 2, u'MF-MPO-16LC': 2, u'NCS2K-400GXP-L-K9': 1, u'NCS2K-MF-UPG-4': 1}
+16
+
+
+172.20.165.73
+2.125
+Cisco NCS 2006
+143055921
+R4
+17
+8
+{u'NCS2K-400G-XP': 1, u'15454-M-100G-LC-C': 1, u'NCS2K-MF-MPO-16LC': 1, u'NCS2K-200G-CK-C': 1, u'NCS2K-TNCS-K9': 3, u'NCS2K-20-SMRFS-CV': 2, u'NCS2K-TNCS-O-K9': 1, u'NCS2K-20-SMRFS': 1, u'NCS2K-MF-UPG-4-CV': 1, u'NCS2K-MF-M16LC-CV': 1, u'MF-MPO-16LC': 2, u'MF-UPG-4': 1, u'NCS2K-MF-DEG-5-CV': 1}
+16
+
+

@@ -1,0 +1,58 @@
+{% extends "web_app/base.html" %}
+{% block content %}
+
+
+<main>
+    <header id="styleguideHeader" class="header header--compressed">
+        <div class="header-bar container" style="padding: 0 50px">
+            <a class="header-bar__logo" href="http://www.cisco.com" target="_blank">
+                <span class="icon-cisco"></span>
+            </a>
+            <div class="header-bar__main">
+                <div class="header-heading">
+                    <h1 class="page-title">EPNM ALARM TOOL <sup class="text-large hidden-xs">0.1</sup></h1>
+                </div>
+            </div>
+            <div class="header-toolbar">
+                <a class="btn btn--small btn--icon"
+                   href="mailto:sfloresk@cisco.com?Subject=Feedback" title="Submit Feedback">
+                    <span class="icon-feedback"></span>
+                </a>
+            </div>
+        </div>
+        <div class="alert alert--danger animated fadeInLeft" ng-if="error != ''">
+            <div class="alert__icon icon-error"></div>
+            <div class="alert__message">{a error a}</div>
+            <div class="alert__close icon-close" ng-click="clearError();"></div>
+        </div>
+    </header>
+
+    <form method="post" action="/web/auth/" style="margin: 5% 5%">
+        {% csrf_token %}
+        <h2>Login</h2>
+        <div class="container" style="margin: 20px 20px">
+            <label><b>Username</b></label><br>
+            <input type="text" placeholder="Enter Username" name="username" required style="width: 40%; margin: 10px 0"><br>
+            <br>
+            <label><b>Password</b></label><br>
+            <input type="password" placeholder="Enter Password" name="password" required style="width: 40%; margin: 10px 0"><br>
+            <br>
+            <button type="submit" style="padding: 5px 50px">Login</button><br>
+            <br>
+            <br>
+             {% if form.errors %}
+                <p class="error"> Sorry, you have entered an incorrect username or password</p>
+             {% endif %}
+            <h3 style="color: red">{{ error_msg }}</h3>
+
+        </div>
+    </form>
+
+</main>
+
+{% endblock %}
+
+
+
+
+

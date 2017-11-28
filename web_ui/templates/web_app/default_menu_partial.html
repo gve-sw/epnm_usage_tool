@@ -1,0 +1,17 @@
+<nav id="styleguideSidebar" class="sidebar sidebar--hidden">
+    <div class="sidebar__header">
+        <div class="sidebar__header-title">Menu</div>
+    </div>
+    <ul id="rootSidebar" data-kss-ref="styleguide.homepage">
+        <li class="sidebar__item" id="section-gettingStarted">
+            <a href="/web/">Home</a>
+        </li>
+        <li style="padding: 30px 0 5px 20px" class="sidebar__item" id="section-gettingStarted">
+            <h6><b>Locations</b></h6>
+        {%for item in list%}
+        	<li style="padding: 0 15px" class="sidebar__item" id="section-gettingStarted">
+            	<a href="{% url 'location' loc=item %}">{{ item }}</a>
+        	</li>
+        {% endfor %}
+    </ul>
+</nav>

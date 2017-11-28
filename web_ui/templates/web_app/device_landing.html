@@ -1,0 +1,105 @@
+<style>
+.ul {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}
+.button {
+    float: right; 
+    border: none;
+    color: #2B4F73;
+    margin-right: 80px; 
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    display: inline-block;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.downloadbtn {
+    background-color: white; 
+    color: #2B4F73; 
+    border: 2px solid #2B4F73;
+}
+
+.downloadbtn:hover {
+    background-color: #2B4F73;
+    color: white;
+    border: 2px solid #2B4F73;
+;
+
+}
+</style>
+<div class="hero hero--indigo">
+    <div class="hero__content">
+        <div class="container center-xs">
+            <div class="row">
+                <div class="col-md-4 col-xl-2">
+                    <img style="max-height:150px" src="/static/web_app/public/img/globalnetwork.jpg">
+                </div>
+                <div class="col-md-8 col-xl-10">
+                    <div class="flex-fluid">
+                        <h1>Evolved Programmable Network Manager</h1>
+                        <h2>Inventory Report</h2>
+                        <br>
+                        <p class="text-large">See below for information regarding slot inventory and usage for {{dev_info.devName}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="section">
+        <div class="panel panel--loose panel--bordered">
+            <button class="button downloadbtn"> <a href="/static/web_app/public/out_file/usage_report.txt" download>Download Usage Report</a></button>
+            <form method="get" action="/web/deviceemail/">
+                {% csrf_token %}
+                <button type="submit" value="{{arg_in}}" class="button downloadbtn" name="mybtn">Send Report as an Email</button>
+                <!-- <input type="submit" value="{{ arg_in }}" name="mybtn"> -->
+            </form>
+            <div class="row">
+                <div class="col-md-8 text-large">
+                    <h1 class="text-huge text-blue base-margin-bottom">{{ arg_in }} Summary for {{ dev_info.devName }}</h1>
+                    <hr>
+
+                </div>
+            </div>
+           <div style="padding-top: 10px">
+
+                    <p>DeviceID: {{ dev_info.devID }}</p>
+                    <p>Address: {{ dev_info.devIP }}</p>
+                    <br>
+                    {%if multi%}
+                           <p>Multi Chassis Rack - {{ chas_num }} Shelves</p>
+                    {%else%}
+                            <p>Single Chassis Rack</p>
+                    {%endif%}
+
+
+                    {%if show_act%}
+                            <p>Active Shelves:</p>
+                            {% for dev, info in dev_info.active.items %}
+                                <p style="padding-left: 5em">{{dev}}:</p>
+                                <p style="padding-left: 10em">Controllers: {{info.0}}/{{info.1}} Slots Populated</p>
+                                <p style="padding-left: 10em">Service Cards: {{info.2}}/{{info.3}} Slots Populated</p>
+                            {% endfor %}
+                    {%endif%}
+                    {%if show_pass%}
+                           <p>Passive Shelves:</p>
+                           {% for dev, info in dev_info.passive.items %}
+                                <p style="padding-left: 5em">{{dev}}:</p>
+                                <p style="padding-left: 10em">Service Cards: {{info.2}}/{{info.3}} Slots Populated </p>
+                            {% endfor %}
+                    {%endif%}
+
+            </div>
+            
+
+
+        </div>
+    </div>
+</div>

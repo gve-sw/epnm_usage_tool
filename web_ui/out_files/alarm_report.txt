@@ -1,0 +1,16 @@
++++++ 172.23.193.142Alarm Summary +++++
+	511079724: Severity is CRITICAL
+	Last Reported: 2017-10-24T03:01:31.461-07:00
+	Description: Device: sjc-ncs4206-a.cisco.com MPLS Tunnel with id: 0 is Administratively DOWN 
+
+
+	488715598: Severity is CRITICAL
+	Last Reported: 2017-10-20T11:02:30.272-07:00
+	Description: Device:172.23.193.142, Sensor subslot 0/0 transceiver 0 Rx Power Sensor value -210 has exceeded the threshold -400.
+
+
+	447005766: Severity is MINOR
+	Last Reported: 2017-10-20T21:31:34.895-07:00
+	Description: Device '172.23.193.142'. Authentication failed for request from '172.18.108.10'.
+
+
