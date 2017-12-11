@@ -55,7 +55,7 @@
 <div class="container">
     <div class="section">
         <div class="panel panel--loose panel--bordered">
-            <button class="button downloadbtn"> <a href="/static/web_app/public/out_file/usage_report.txt" download>Download Usage Report</a></button>
+            <button class="button downloadbtn"> <a href="/static/web_app/public/out_file/device_report.txt" download>Download Usage Report</a></button>
             <form method="get" action="/web/deviceemail/">
                 {% csrf_token %}
                 <button type="submit" value="{{arg_in}}" class="button downloadbtn" name="mybtn">Send Report as an Email</button>

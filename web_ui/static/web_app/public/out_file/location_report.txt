@@ -1,0 +1,57 @@
+Inventory Report for NCS1k-2k Network
+
+++++++ Summary for R1 ++++++
+	Device ID: 143055918
+	Address: 172.20.165.70
+
+	Multi Chassis Rack - 2 Shelves
+	Active Shelves:
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 4/6 Slots Populated - 67% Utilization
+	NCS2006[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 1/6 Slots Populated - 17% Utilization
+
+
+++++++ Summary for R2 ++++++
+	Device ID: 143055919
+	Address: 172.20.165.71
+
+	Multi Chassis Rack - 2 Shelves
+	Active Shelves:
+	NCS2006[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 1/6 Slots Populated - 17% Utilization
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 4/6 Slots Populated - 67% Utilization
+
+
+++++++ Summary for R3 ++++++
+	Device ID: 143055920
+	Address: 172.20.165.72
+
+	Multi Chassis Rack - 2 Shelves
+	Active Shelves:
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
+	NCS2006[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
+
+
+++++++ Summary for R4 ++++++
+	Device ID: 143055921
+	Address: 172.20.165.73
+
+	Multi Chassis Rack - 2 Shelves
+	Active Shelves:
+	NCS2006[SHELF-1]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 5/6 Slots Populated - 83% Utilization
+

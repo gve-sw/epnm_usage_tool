@@ -55,58 +55,54 @@
 <div class="container">
     <div class="section">
         <div class="panel panel--loose panel--bordered">
-            <button class="button downloadbtn"> <a href="/static/web_app/public/out_file/alarm_report.csv" download>Download Alarm Report</a></button>
+            <button class="button downloadbtn"> <a href="/static/web_app/public/out_file/location_report.txt" download>Download Usage Report</a></button>
             <form method="get" action="/web/groupemail/">
                 {% csrf_token %}
-                <button type="submit" value="{{arg_in}}" class="button downloadbtn" name="mybtn">Send Report as an Email</button>
+                <button type="submit" value="{{loc}}" class="button downloadbtn" name="mybtn">Send Report as an Email</button>
                 <!-- <input type="submit" value="{{ arg_in }}" name="mybtn"> -->
             </form>
             <div class="row">
                 <div class="col-md-8 text-large">
-                    <h1 class="text-huge text-blue base-margin-bottom">{{ arg_in }} Alarms</h1>
+                    <h1 class="text-huge text-blue base-margin-bottom">{{ loc }} Usage</h1>
                 </div>
             </div>
             <div>
-                <h6><p>Total Alarms: {{ total_alarms }}</p></h6>
-                <h6><p>Alarm Severity Breakdown:</p></h6>
-                    {% for k, v in alarm_breakdown.items %}
-                        <h6><p style="text-indent: 50px">{{k}} : {{v}}</p></h6>
-                    {%endfor%}
+                <h6><p>Number of Devices: {{ arg_in|length }}</p></h6>
+                <hr style="margin-right: 300px">
+                
             </div>
             <div style="padding-top: 10px">
-                {%for dev in dev_info%}
-                    <p>{{dev.devID}}</p>
-                    <p>{{dev.devIP}}</p>
+                {%for dev in arg_in%}
+                    <p><b>DeviceID:</b> {{ dev.dev_info.devID }}</p>
+                    <p><b>Address:</b> {{ dev.dev_info.devIP }}</p>
+                
                     <br>
-
-                    <!-- <p>DeviceID: {{ dev_info.devID }}</p>
-                        <p>Address: {{ dev_info.devIP }}</p>
-                        <br>
-                        {%if multi%}
-                               <p>Multi Chassis Rack - {{ chas_num }} Shelves</p>
-                        {%else%}
-                                <p>Single Chassis Rack</p>
-                        {%endif%}
+                    {%if dev.multi%}
+                           <p><b>Multi Chassis Rack</b> - {{ dev.chas_num }} Shelves</p>
+                    {%else%}
+                            <p><b>Single Chassis Rack</b></p>
+                    {%endif%}
 
 
-                        {%if show_act%}
-                                <p>Active Shelves:</p>
-                                {% for dev, info in dev_info.active.items %}
-                                    <p style="padding-left: 5em">{{dev}}:</p>
-                                    <p style="padding-left: 10em">Controllers: {{info.0}}/{{info.1}} Slots Populated - [insert math]% Utilization</p>
-                                    <p style="padding-left: 10em">Service Cards: {{info.2}}/{{info.3}} Slots Populated - [insert math]% Utilization</p>
-                                {% endfor %}
-                        {%endif%}
-                        {%if show_pass%}
-                               <p>Passive Shelves:</p>
-                               {% for dev, info in dev_info.passive.items %}
-                                    <p style="padding-left: 5em">{{dev}}:</p>
-                                    <p style="padding-left: 10em">Service Cards: {{info.2}}/{{info.3}} Slots Populated - [insert math]% Utilization</p>
-                                {% endfor %}
-                        {%endif%}
-                }
- -->
+                    {%if dev.show_act%}
+                            <p><b>Active Shelves:</b></p>
+                            {% for key, val in dev.dev_info.active.items %}
+                                <p style="padding-left: 5em"><b>{{key}}:</b></p>
+                                <p style="padding-left: 10em"><b>Controllers:</b> {{val.0}}/{{val.1}} Slots Populated</p>
+                                <p style="padding-left: 10em"><b>Service Cards:</b> {{val.2}}/{{val.3}} Slots Populated</p>
+                            {% endfor %}
+                    {%endif%}
+                    {%if show_pass%}
+                           <p><b>Passive Shelves:</b></p>
+                           {% for dev, info in dev.dev_info.passive.items %}
+                                <p style="padding-left: 5em"><b>{{dev}}:</b></p>
+                                <p style="padding-left: 10em"><b>Service Cards:</b> {{info.2}}/{{info.3}} Slots Populated </p>
+                            {% endfor %}
+                    {%endif%}
 
+                    <br>
+                    <hr style="margin-right: 300px">
+                    <br>
 
 
                 {%endfor%}

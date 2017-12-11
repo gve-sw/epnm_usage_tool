@@ -109,7 +109,7 @@ def device_landing(request, dev):
     if len(dev_info['active']) >0:
         show_act=True
 
-    out_writer(dev_text)
+    out_writer(dev_text, 'device')
 
     return render(request, 'web_app/device_landing.html', {
         'dev_info' : dev_info,
@@ -129,16 +129,14 @@ def location_dump(request, location):
     epnm_obj = EPNM(creds['host'], creds['user'], creds['password'], SLOTS, TNC, LC, TWORU)
     dev_list = epnm_obj.get_group_devs(location)
 
-    dev_info_dump = []
-    dev_text_dump = []
-    multi_dump = []
-    show_act_dump = []
-    show_pass_dump = []
-    chas_num_dump = []
+    out_string= 'Inventory Report for '+location+'\n'
 
-    
+    arg_in=[]
+
+
 
     for dev in dev_list:
+        template_dict={}
         report = epnm_obj.get_ncs2kmod_dev(dev)
         dev_info = report[0]
         dev_text = report[1]  
@@ -157,53 +155,24 @@ def location_dump(request, location):
         if len(dev_info['active']) >0:
             show_act=True
 
-        dev_info_dump.append(dev_info)
-        dev_text_dump.append(dev_text)
-        multi_dump.append(multi)
-        show_act_dump.append(show_act)
-        show_pass_dump.append(show_pass)
-        chas_num_dump.append(chas_num)
+        dev_dict={
+        'dev_info': dev_info,
+        'multi': multi,
+        'show_act': show_act,
+        'show_pass':show_pass,
+        'chas_num':chas_num,
+        }
 
-    print dev_info_dump
-    print 'end'
+        arg_in.append(dev_dict)
+
+        out_string+='\n'+dev_text
 
 
-
-    # d_string = []
-    # d_string.append('+++++ ' + location + ' Alarm Summary +++++')
-    # for device in alarm_list:
-    #     d_string.append('Device ' + device)
-    #     for alarm in alarm_list[device]:
-    #         d_string.append('\tAlarmID: ' + alarm)
-    #         for key in alarm_list[device][alarm]:
-    #             d_string.append('\t' + key + ':' + str(alarm_list[device][alarm][key])) 
-    #         d_string.append('\n')
-    #     d_string.append('\n')
-    # group_writer(alarm_list)
-
-    # base = os.path.dirname(os.path.abspath(__file__))
-    # output_file = base + '/out_files/alarm_report.csv'
-
-    # alarm_breakdown={}
-    # total_alarms = 0
-    # for item in alarm_list:
-    #     for k in alarm_list[item]:
-    #         for v in alarm_list[item][k]:
-    #             if v=='Severity':
-    #                 sev = alarm_list[item][k][v]
-    #                 total_alarms += 1
-    #                 if sev not in alarm_breakdown:
-    #                     alarm_breakdown[sev]=1
-    #                 else:
-    #                     alarm_breakdown[sev]+=1
+    out_writer(out_string, 'location')
 
     return render(request, 'web_app/location_dump.html', {
-        'dev_info' : dev_info_dump,
-        'multi': multi_dump,
-        'show_act': show_act_dump,
-        'show_pass':show_pass_dump,
-        'chas_num':chas_num_dump,
-        'arg_in':location,
+        'arg_in': arg_in,
+        'loc':location,
         })
 
 
@@ -227,12 +196,11 @@ def send_group_email_view(request):
         location = str(request.GET.get('mybtn'))
         creds = epnm_info().get_info()
         epnm_obj = EPNM(creds['host'], creds['user'], creds['password'])
-        if epnm_obj.get_group_alarms(location) != {}:
-            print "found"
-            base = os.path.dirname(os.path.abspath(__file__))
-            download_url = base + '/static/web_app/public/out_file/alarm_report.csv'
-            subject = "EPNM Alarm Report for Devices in " + location
-            epnm_obj.send_email('micastel@cisco.com',"epnm84@gmail.com", subject, download_url)#("steveyee@cisco.com", "epnm84@gmail.com", subject, download_url)
+        base = os.path.dirname(os.path.abspath(__file__))
+        download_url = base + '/static/web_app/public/out_file/location_report.txt'
+        subject = "EPNM Usage Report for Devices in " + location
+        epnm_obj.send_email('micastel@cisco.com',"epnm84@gmail.com", subject, download_url)#("steveyee@cisco.com", "epnm84@gmail.com", subject, download_url)
+        
         redirect_url = "/web/alarms/" + location
         return redirect(redirect_url)
 
@@ -244,8 +212,8 @@ def send_device_email_view(request):
         epnm_obj = EPNM(creds['host'], creds['user'], creds['password'])
         if epnm_obj.get_alarms(device) != {}:
             base = os.path.dirname(os.path.abspath(__file__))
-            download_url = base + '/static/web_app/public/out_file/alarm_report.csv'
-            subject = "EPNM Alarm Report for Device " + device
+            download_url = base + '/static/web_app/public/out_file/device_report.txt'
+            subject = "EPNM Usage Report for Device " + device
             epnm_obj.send_email('micastel@cisco.com',"epnm84@gmail.com", subject, download_url)#"steveyee@cisco.com", "epnm84@gmail.com", subject, download_url)
         redirect_url = "/web/device/" + device
         return redirect(redirect_url)
@@ -269,9 +237,9 @@ def group_writer(alarm_list):
     return output_file
 
 
-def out_writer(text):
+def out_writer(text, label):
     base = os.path.dirname(os.path.abspath(__file__))
-    output_file = base + '/static/web_app/public/out_file/usage_report.txt'
+    output_file = base + '/static/web_app/public/out_file/'+label+'_report.txt'
     with open(output_file, "wb") as f:
         f.write(text)
 
