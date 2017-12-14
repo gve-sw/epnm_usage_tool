@@ -1,13 +1,13 @@
-++++++ Summary for R1 ++++++
-	Device ID: 143055918
-	Address: 172.20.165.70
+++++++ Summary for R2 ++++++
+	Device ID: 143055919
+	Address: 172.20.165.71
 
 	Multi Chassis Rack - 2 Shelves
 	Active Shelves:
-	NCS2006[SHELF-2]:
-		Controllers: 2/2 Slots Populated - 100% Utilization
-		Service Cards: 4/6 Slots Populated - 67% Utilization
 	NCS2006[SHELF-1]:
 		Controllers: 2/2 Slots Populated - 100% Utilization
 		Service Cards: 1/6 Slots Populated - 17% Utilization
+	NCS2006[SHELF-2]:
+		Controllers: 2/2 Slots Populated - 100% Utilization
+		Service Cards: 4/6 Slots Populated - 67% Utilization
 

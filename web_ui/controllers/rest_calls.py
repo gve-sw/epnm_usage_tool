@@ -16,6 +16,7 @@ class EPNM_Usage:
 
     requests.packages.urllib3.disable_warnings()
 
+    # Set default values for authorization and host site location
     def __init__(self,host, user, pwd, SLOTS=[], TNC=[], LC=[], TWORU=[], verify=False):
         self.authorization = "Basic " + base64.b64encode(user + ":" + pwd)
         self.host = host
@@ -24,7 +25,7 @@ class EPNM_Usage:
         self.LC=LC
         self.TWORU=TWORU
 
-
+    # Create default headers needed for EPNM Rest API 
     def get_headers(self, auth, content_type = "application", cache_control = "no-cache"):
         headers={
             'content-type': content_type,
@@ -33,14 +34,17 @@ class EPNM_Usage:
         }
         return headers
 
+    # Send GET request to EPNM API
     def get_response(self, url, headers, requestType = "GET", verify = False):
         return requests.request(requestType, url, headers=headers, verify = verify).json()
-
+   
+    # Formulate GET request for individual devices and send it by calling get_response()
     def make_get_req(self, auth, host, ext, filters = ""):
         headers = self.get_headers(auth)
         url = "https://"+host+"/webacs/api/v1/data/"+ext+".json?"+filters
         return self.get_response(url, headers, requestType = "GET", verify = False)
 
+    # Formulate GET request for location groups and send it by calling get_response()
     def make_group_get_req(self, auth, host, ext, filters = ""):
         headers = self.get_headers(auth)
         url = "https://"+host+"/webacs/api/v1/op/groups/"+ext+".json?"+filters
@@ -52,6 +56,7 @@ class EPNM_Usage:
             id_list.append(str(item['$']))
         return id_list
 
+    # Sends an email using gmal server
     def send_email(self, destination_address, source_address, subject, attachment_url):
         email_message = MIMEMultipart()
         email_message['subject'] = subject
@@ -74,7 +79,7 @@ class EPNM_Usage:
         server.sendmail(source_address, destination_address, email_message.as_string())
         server.quit()
 
-
+    # Create a usable model of the shelf information given previously queried data
     def make_shelf_info(self,shelfTypeRaw, capacity, chassisType, controllerCapacity):
         if shelfTypeRaw == 0:
             shelfType = "active"
@@ -89,6 +94,7 @@ class EPNM_Usage:
             'controllerCapacity' : controllerCapacity
         }
 
+    # Creates a usable dictionary to pass through into the HTML templates
     def make_r_dict(self, devName, devID, devIP, active_list, passive_list):
         return {
             'devName' : devName,
@@ -99,7 +105,7 @@ class EPNM_Usage:
 
         }
     
-
+    # Uses the EPNM naming convention to determine device type and form factor of the given shelf
     def determine_shelf_info(self,physicalLocation, productName, deviceType):
         if physicalLocation == 'SHELF':
             if '-M2' in productName:
@@ -122,8 +128,6 @@ class EPNM_Usage:
             if 'M15]' == productFamily:
                 return self.make_shelf_info(0,15,'NCS2015',2)
             raise ValueError("SHELF")
-        #****************************************
-        #Not worrying about p-shelf at the moment
         if 'PSHELF' == location:
             productFamily = physicalLocation[-9:]
             # if '-2RU]' == productFamily:
@@ -133,9 +137,9 @@ class EPNM_Usage:
             if 'MF10-6RU]' == productFamily:
                 return self.make_shelf_info(1,10,'10 Double Slot Passive Unit',0)
             raise ValueError("PSHELF")
-        #****************************************
         return self.make_shelf_info("Neither",0,'Not line card or controller',0)
 
+    # Creates a usable model for a given device
     def create_device_model(self,deviceID, deviceIP, deviceName, deviceType, lineCards, slotUsage, capacity, utilization):
         device = {
             'deviceID' : deviceID,
@@ -149,7 +153,7 @@ class EPNM_Usage:
         }
         return device
 
-
+    # Given a location (group) queries all devices associated with that group
     def get_group_devs(self, group):
         id_list = []
         #print group
@@ -165,6 +169,8 @@ class EPNM_Usage:
         except:
             return id_list
 
+
+    # Gets all defined groups
     def get_groupings(self):
         group_list = []
         extension = 'deviceGroups'
@@ -175,15 +181,8 @@ class EPNM_Usage:
         return group_list
 
 
-
-
-
+    # Given a device ID, parses through the inventory returned and determines the capacity and utulization
     def get_ncs2kmod_dev(self, devID):
-        # extension = 'InventoryDetails'
-        # filters = ".full=true&summary.deviceType=startsWith(\"Cisco NCS 2\")"
-        # response = make_get_req(auth, host, extension, filters)
-        
-        #extension = 'InventoryDetails/7688694'
         extension = 'InventoryDetails/'+devID
         response = self.make_get_req(self.authorization, self.host, extension)
 
@@ -252,22 +251,15 @@ class EPNM_Usage:
                 productName=productName.replace('=','')
                 if validChassis == True:                
                     if productName in self.LC:
-                        # if physicalLocation == "PSHELF-1[PSHELF-MF-6RU]":
-                        #     print productName   
-                        #print '********* IN ********'
+
                         chassis_pairings[fullChassisName][2] += 1
                         if productName in lineCards:
                             lineCards[productName] += 1
                         else:
                             lineCards[productName] = 1
-
                         if productName in self.TWORU and chassisType != "10 Double Slot Passive Unit":
-                            # print deviceIP
-                            # print productName
-                            # print chassis_pairings[fullChassisName][2]
                             chassis_pairings[fullChassisName][2] += 1
                     if productName in self.TNC:
-                        #print '********* IN ********'
                         chassis_pairings[fullChassisName][0] += 1
                     validChassis = False
 
@@ -312,74 +304,16 @@ class EPNM_Usage:
         return rstring
 
 
-
-
-
-
-
-
-
-    def get_alarms(self, dev):
-        extension = 'Alarms'
-        filters = '.full=true'
-        no_cleared_filters = ".full=true&source=\""+dev+"\"&severity=ne(\"CLEARED\")"
-        #***-->group filtering--> .group="GROUP"
-        response = self.make_get_req(self.authorization, self.host, extension, no_cleared_filters)['queryResponse']['entity']
-        #print len(response)
-        r_dict={}
-        for item in response:
-            info={}
-            info['Severity'] = item['alarmsDTO']['severity']
-            info['Description'] = item['alarmsDTO']['message']
-            info['TimeStamp'] = item['alarmsDTO']['timeStamp']
-            info['FailureSource'] = item['alarmsDTO']['source']
-            info['LastUpdatedAt'] = item['alarmsDTO']['lastUpdatedAt']
-            info['AcknowledgmentStatus'] = item['alarmsDTO']['acknowledgementStatus']
-            if 'annotations' in item['alarmsDTO']:
-                info['Notes'] = item['alarmsDTO']['annotations']
-            else:
-                info['Notes'] = "No Notes"
-            r_dict[item['alarmsDTO']['@id']] = info
-        #     try:
-        #         print r_dict['447006516']
-        #     except:
-        #         pass
-        # for k in r_dict:
-        #     v=r_dict[k]
-        #     print k,v
-        return r_dict
-        # print json.dumps(response, indent=2)
-
-
-
+    # Return list of locations defined for the site
     def get_locations(self):
-        """ Queries all registered Guests"""
         site_list = []
         extension = 'sites'
         filters = '.full=true'
         response = self.make_group_get_req(self.authorization, self.host, extension, filters)['mgmtResponse']['siteOpDTO']
         for item in response:
             if item['deviceCount'] != 0:
-                #print item['name'] + ' - '+ str(item['deviceCount'])
                 site_list.append(item['name'][item['name'].rfind('/')+1:])
 
         return site_list
-        #print json.dumps(response, indent=2)
 
 
-
-
-    if __name__ == '__main__':
-        #Disable warnings since we are not verifying SSL
-        requests.packages.urllib3.disable_warnings()
-        host_addr = 'tme-epnm'
-        # user = raw_input("User: ")
-        # pwd = getpass.getpass("Password: ")
-
-        #use above for taking in arguments- i got lazy so i didnt feel like typing it each time
-        #i just took the commands at run time
-        user = sys.argv[1]
-        pwd = sys.argv[2]
-        auth = base64.b64encode(user + ":" + pwd)
-
-       
