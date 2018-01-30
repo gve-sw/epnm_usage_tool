@@ -2,9 +2,9 @@ from django.db import models
 
 # Create your models here.
 class epnm_info(models.Model):
-	host = 'tme-epnm'
-	user = 'nbiuser'
-	password = 'cisco'
+	host = ''
+	user = ''
+	password = ''
 
 	def get_info(self):
 		r_dict={
